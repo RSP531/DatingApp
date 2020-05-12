@@ -12,6 +12,7 @@ namespace DatingApp.API.Controllers
   [ApiController]
   public class ValuesController : ControllerBase
   {
+    //declaring private variable with underscore
     private readonly DataContext _context;
     //dependency injection?
     public ValuesController(DataContext context)
@@ -22,6 +23,8 @@ namespace DatingApp.API.Controllers
     [HttpGet]
     public async Task<IActionResult> GetValues()
     {
+      // _context give access to entity framework
+      // Value gives access to
       var values = await _context.Values.ToListAsync();
 
       return Ok(values);
@@ -29,9 +32,9 @@ namespace DatingApp.API.Controllers
 
     // GET api/values/5
     [HttpGet("{id}")]
-    public IActionResult GetValue(int id)
+    public async Task<IActionResult> GetValue(int id)
     {
-      var value = _context.Values.FirstOrDefault(x => x.Id == id);
+      var value = await _context.Values.FirstOrDefaultAsync(x => x.Id == id);
 
       return Ok(value);
     }
